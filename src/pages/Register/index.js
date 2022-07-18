@@ -21,7 +21,7 @@ export const SignUp = () => {
     }
 
     return(
-        <div className="sign-page signup-page">
+        <div className="sign-page">
             <div className="sign">
                 <div className="sign-area">
                     <img src={basketball} alt="Imagem ilustrativa de uma cesta de basquete" />
@@ -34,6 +34,8 @@ export const SignUp = () => {
                     <input type="password" placeholder="Senha" value={password} onChange={ (e) => setPassword(e.target.value)} />
                     <button className='btn' type="submit">Cadastrar</button>
                 </form>
+
+                <a className="redirect-btn" href="/">Já possui conta? Entre</a>
             </div>
         </div>
     );

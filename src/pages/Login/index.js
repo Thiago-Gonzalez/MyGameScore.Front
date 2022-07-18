@@ -1,5 +1,4 @@
 import { toast } from "react-toastify";
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 import './login.css';
@@ -34,7 +33,7 @@ export const SignIn = () => {
                     <button className='btn' type="submit">Acessar</button>
                 </form>
 
-                <Link className="register-btn" to="/register">Ainda não possui uma conta? Cadastre-se</Link>
+                <a className="redirect-btn" href="/register">Ainda não possui uma conta? Cadastre-se</a>
             </div>
         </div>
     );
