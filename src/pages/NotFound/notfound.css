@@ -1,0 +1,21 @@
+.notfound-page {
+    height: 100%;
+    display: flex;
+    justify-content: left;
+    color: #F45B24;
+    padding: 40px 80px;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+}
+
+.info-data {
+    margin-top: 20px;
+}
+
+.crybasketball {
+    height: 150px;
+    width: 150px;
+}

@@ -18,7 +18,7 @@
 .sign-area {
     display: flex;
     justify-content: center;
-    background-color: #181c2e;
+    background-color: #F45B24;
     width: 100%;
 }
 
@@ -36,7 +36,7 @@
 .sign-page form h1 {
     text-align: center;
     margin-bottom: 0.5em;
-    color: #181c2e;
+    color: #F45B24;
 }
 
 .sign input {
@@ -50,7 +50,7 @@
 }
 
 .sign-page form button {
-    background-color: #181c2e;
+    background-color: #F45B24;
     color: #FFF;
     font-size: 1.2rem;
     margin-bottom: 0.2rem;
