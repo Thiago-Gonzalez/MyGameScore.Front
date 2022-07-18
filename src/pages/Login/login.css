@@ -1,0 +1,68 @@
+.sign-page {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #292929;
+}
+
+.sign {
+    background: #EAEAEC;
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.sign-area {
+    display: flex;
+    justify-content: center;
+    background-color: #181c2e;
+    width: 100%;
+}
+
+.sign-area img {
+    padding: 20px;
+}
+
+.sign-page form {
+    margin-top: 1.5em;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sign-page form h1 {
+    text-align: center;
+    margin-bottom: 0.5em;
+    color: #181c2e;
+}
+
+.sign input {
+    margin-bottom: 15px;
+    height: 35px;
+    border: 0;
+    border-radius: 7px;
+    padding: 10px;
+    font-size: 15px;
+    background-color: #FFF;
+}
+
+.sign-page form button {
+    background-color: #181c2e;
+    color: #FFF;
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+    transition: 0.2s;
+}
+
+.sign-page form button:hover {
+    transform: scale(1.02);
+    color: #FFF;
+}
+
+.register-btn {
+    font-size: 1em;
+    margin-bottom: 1em;
+}
