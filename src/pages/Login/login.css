@@ -60,6 +60,7 @@
 .sign-page form button:hover {
     transform: scale(1.02);
     color: #FFF;
+    background-color: #F45B24;
 }
 
 .redirect-btn {

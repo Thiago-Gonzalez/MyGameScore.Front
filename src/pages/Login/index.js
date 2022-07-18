@@ -33,7 +33,7 @@ export const SignIn = () => {
                     <button className='btn' type="submit">Acessar</button>
                 </form>
 
-                <a className="redirect-btn" href="/register">Ainda não possui uma conta? Cadastre-se</a>
+                <a className="redirect-btn" href="/cadastro">Ainda não possui uma conta? Cadastre-se</a>
             </div>
         </div>
     );
