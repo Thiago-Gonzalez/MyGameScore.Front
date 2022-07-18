@@ -1,15 +1,16 @@
 import { Container } from "react-bootstrap";
 
 import crybasketball from '../../assets/crybasketball.png';
+import { FooterComponent } from "../../components/FooterComponent";
 import { NavbarComponent } from "../../components/NavbarComponent";
 
 import './notfound.css';
 
 export const NotFound = () => {
     return(
-        <>
+        <div className="notfound-page">
             <NavbarComponent />
-            <Container fluid className="notfound-page">
+            <Container fluid>
                 <div className="info">
                     <img className="crybasketball" src={crybasketball} alt="Imagem ilustrativa de uma bola de basquete triste" />
                     <div className="info-data">
@@ -18,6 +19,7 @@ export const NotFound = () => {
                     </div>
                 </div>
             </Container>
-        </>
+            <FooterComponent />
+        </div>
     );
 }

@@ -1,0 +1,31 @@
+footer {
+    background-color: #212529;
+    color: #fff;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+footer .logo {
+    width: 25px;
+    height: 25px;
+}
+
+.socials {
+    display: flex;
+    justify-content:space-around;
+}
+
+.white-text {
+    color: #fff;
+    text-align: center;
+}
+
+.cpy {
+    font-size: 0.75rem;
+    font-weight: 300;
+    margin-top: 30px;
+    margin-bottom: 0;
+}
