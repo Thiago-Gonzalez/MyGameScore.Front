@@ -2,22 +2,50 @@ import { NavbarComponent } from '../../components/NavbarComponent';
 import { FooterComponent } from '../../components/FooterComponent';
 
 import { Container } from 'react-bootstrap';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import './lancarpontos.css';
 
 import basketball from '../../assets/basketball.png';
+import AuthProvider from '../../contexts/auth';
+
+import api from '../../services/api';
 
 export const LancarPontos = () => {
+    const { playerId } = useContext(AuthProvider);
+
+    const [token] = useState(localStorage.getItem('token'));
+
     const [date, setDate] = useState(null);
     const [score, setScore] = useState();
 
-    function handleSubmit(e) {
+    const [loading, setLoading] = useState(false);
+
+    async function handleSubmit(e) {
         e.preventDefault();
 
-        if (date !== null && score != '' && score >= 0) {
-            toast.success("Form submetido com sucesso!");
+        if (date !== null && score !== '' && score >= 0) {
+            setLoading(true);
+            await api.post("/api/matches", {
+                date, score, playerId
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            .then(response => {
+                setLoading(false);
+                if (response.status === 201) {
+                    setDate(null);
+                    setScore();
+                    toast.success('Partida cadastrada com sucesso!');
+                }
+            })
+            .catch(error => {
+                setLoading(false);
+                toast.error(`Erro ao cadastrar partida: ${error.response.data}`)
+            })
         } else {
             toast.warning("Preencha todos os campos!");
         }
@@ -39,7 +67,7 @@ export const LancarPontos = () => {
                             <label>Pontuação obtida</label>
                             <input type="number" value={score} onChange={ (e) => setScore(e.target.value)} />
                         </div>
-                        <button className='btn' type='submit'>Salvar</button>
+                        <button className='btn' type='submit'>{loading ? 'Salvando...' : 'Salvar'}</button>
                     </form>
                 </div>
             </Container>
