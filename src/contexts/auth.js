@@ -15,11 +15,13 @@ export default function AuthProvider({
     const [loadingSignOut, setLoadingSignOut] = useState(false);
     const [loadingSignIn, setLoadingSignIn] = useState(false);
     const [signed, setSigned] = useState(false);
+    const [playerId, setPlayerId] = useState();
 
     useEffect(() => {
 
         function checkUser() {
             setSigned(!!localStorage.getItem('token'));
+            setPlayerId(localStorage.getItem('playerId'));
         }
 
         checkUser();
@@ -33,6 +35,7 @@ export default function AuthProvider({
         .then((response) => {
             setLoadingAuth(false);
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('playerId', response.data.id);
             history.push("/lancar-pontos");
             toast.success("Bem-vindo de volta!");
         })
@@ -85,7 +88,8 @@ export default function AuthProvider({
                     signUp,
                     loadingAuth,
                     loadingSignOut,
-                    loadingSignIn
+                    loadingSignIn,
+                    playerId
                 }
             } >
                 {
