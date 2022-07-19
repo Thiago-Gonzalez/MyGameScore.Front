@@ -5,6 +5,7 @@ import { SignUp } from "../pages/Register";
 import { LancarPontos } from "../pages/LancarPontos";
 import { VerResultados } from "../pages/VerResultados";
 import { VerPartidas } from "../pages/VerPartidas";
+import { MaioresPontuacoes } from "../pages/MaioresPontuacoes";
 
 const Routes = () => {
     return (
@@ -15,6 +16,7 @@ const Routes = () => {
             <Route exact path="/lancar-pontos" component={LancarPontos} />
             <Route exact path="/ver-resultados" component={VerResultados} />
             <Route exact path="/ver-partidas" component={VerPartidas} />
+            <Route exact path="/maiores-pontuacoes" component={MaioresPontuacoes} />
 
             <Route path="*" component={NotFound} />
         </Switch>

@@ -22,6 +22,7 @@ export const NavbarComponent = () => {
                         <Nav.Link href="/lancar-pontos">Lançar pontos</Nav.Link>
                         <Nav.Link href="/ver-partidas">Ver partidas</Nav.Link>
                         <Nav.Link href="/ver-resultados">Ver resultados</Nav.Link>
+                        <Nav.Link href="maiores-pontuacoes">Quadro de pontuações</Nav.Link>
                     </Nav>
                     <Button variant='link'>Sair</Button>
                 </Navbar.Collapse>

@@ -1,0 +1,22 @@
+#maiores-pontuacoes-page .mp-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 359.4px;
+}
+
+.mp-content img {
+    margin-right: 50px;
+}
+
+.mp-content table {
+    color: #F45B24;
+}
+
+.mp-content table tbody, .mp-content table td, .mp-content table th {
+    border: none;
+}
+
+.mp-content .points {
+    text-align: center;
+}

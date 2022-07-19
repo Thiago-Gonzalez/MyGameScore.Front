@@ -24,7 +24,7 @@ export const VerPartidas = () => {
                 <img src={basketball} alt="Imagem ilustrativa de cesta de basquete" />
                 <div>
                     <h1>Suas partidas</h1>
-                    {matches.length == 0 ? (
+                    {matches.length === 0 ? (
                         <>
                             <p>
                                 Você ainda não possui partidas cadastradas! <a href="/lancar-pontos">Cadastrar partida</a>
