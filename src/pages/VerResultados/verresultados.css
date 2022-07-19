@@ -1,0 +1,27 @@
+#ver-resultados-page .vr-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 359.4px;
+}
+
+.vr-content img {
+    margin-right: 50px;
+}
+
+.vr-content table {
+    color: #F45B24;
+}
+
+.vr-content table tbody, .vr-content table td, .vr-content table th {
+    border: none;
+}
+
+.vr-content .heading {
+    font-size: 1.75rem;
+    font-weight: 800;
+}
+
+.vr-content .season, .vr-content table td {
+    text-align: right;
+}
