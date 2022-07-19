@@ -1,10 +1,18 @@
+import { useContext } from 'react';
 import { Button, Navbar, Nav, Container } from 'react-bootstrap';
 
 import basketball from '../../assets/basketball_icon.png';
+import { AuthContext } from '../../contexts/auth';
 
 import './navbarcomponent.css';
 
 export const NavbarComponent = () => {
+    const { signOut, loadingSignOut } = useContext(AuthContext);
+
+    function logout() {
+        signOut();
+    }
+
     return(
         <Navbar expand="xl" bg="dark" variant='dark'>
             <Container>
@@ -24,7 +32,7 @@ export const NavbarComponent = () => {
                         <Nav.Link href="/ver-resultados">Ver resultados</Nav.Link>
                         <Nav.Link href="maiores-pontuacoes">Quadro de pontuações</Nav.Link>
                     </Nav>
-                    <Button variant='link'>Sair</Button>
+                    <Button onClick={logout} variant='link'>{loadingSignOut ? 'Saindo...' : 'Sair'}</Button>
                 </Navbar.Collapse>
             </Container>
         </Navbar>

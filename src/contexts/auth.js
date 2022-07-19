@@ -61,8 +61,8 @@ export default function AuthProvider({
         setLoadingSignOut(true);
         setTimeout(async () => {
             localStorage.clear();
-            setLoadingSignOut(false);
             history.push("/");
+            setLoadingSignOut(false);
         }, 1000);
     }
 
