@@ -3,15 +3,18 @@ import { ToastContainer } from "react-toastify";
 import Routes from './routes';
 
 import 'react-toastify/dist/ReactToastify.css';
+import AuthProvider from "./contexts/auth";
 
 function App() {
   return (
-    <BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
       <ToastContainer 
         autoClose={3000}
       />
       <Routes />
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 

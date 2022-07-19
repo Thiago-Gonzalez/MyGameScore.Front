@@ -1,11 +1,14 @@
 import { toast } from "react-toastify";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import './login.css';
 
 import basketball from '../../assets/basketball.png';
+import { AuthContext } from "../../contexts/auth";
 
 export const SignIn = () => {
+    const { signIn, loadingAuth } = useContext(AuthContext);
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -13,7 +16,9 @@ export const SignIn = () => {
         e.preventDefault();
 
         if (email !== '' && password !== '') {
-            toast.success('Form submetido com sucesso!');
+            signIn(email, password);
+            setEmail('');
+            setPassword('');
         } else if (email === '' || password === '') {
             toast.warning('Preencha todos os campos!');
         }
@@ -30,7 +35,7 @@ export const SignIn = () => {
                     <h1>Acesse myGameScore</h1>
                     <input type="email" placeholder="Email" value={email} onChange={ (e) => setEmail(e.target.value)} />
                     <input type="password" placeholder="Senha" value={password} onChange={ (e) => setPassword(e.target.value)} />
-                    <button className='btn' type="submit">Acessar</button>
+                    <button className='btn' type="submit">{loadingAuth ? 'Acessando...' : 'Acessar'}</button>
                 </form>
 
                 <a className="redirect-btn" href="/cadastro">Ainda não possui uma conta? Cadastre-se</a>
