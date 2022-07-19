@@ -13,12 +13,12 @@ const Routes = () => {
             <Route exact path="/" component={SignIn} />
             <Route exact path="/cadastro" component={SignUpPage} />
             
-            <Route exact path="/lancar-pontos" component={LancarPontos} />
-            <Route exact path="/ver-resultados" component={VerResultados} />
-            <Route exact path="/ver-partidas" component={VerPartidas} />
-            <Route exact path="/maiores-pontuacoes" component={MaioresPontuacoes} />
+            <Route exact path="/lancar-pontos" component={LancarPontos} isPrivate />
+            <Route exact path="/ver-resultados" component={VerResultados} isPrivate />
+            <Route exact path="/ver-partidas" component={VerPartidas} isPrivate />
+            <Route exact path="/maiores-pontuacoes" component={MaioresPontuacoes} isPrivate />
 
-            <Route path="*" component={NotFound} />
+            <Route path="*" component={NotFound} isPrivate />
         </Switch>
     );
 }
