@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from 'react-toastify';
-import { useHistory } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 import api from '../services/api';
 
 export const AuthContext = createContext({});
@@ -37,6 +37,7 @@ export default function AuthProvider({
             toast.success("Bem-vindo de volta!");
         })
         .catch((error) => {
+            toast.error("Erro ao realizar login: verifique se suas credenciais estão corretas");
             console.log(error);
             setLoadingAuth(false);
         });
@@ -49,31 +50,27 @@ export default function AuthProvider({
         await api.post("/api/players", { name, email, password })
         .then(async (response) => {
             setLoadingAuth(false);
-            setLoadingSignIn(true);
             toast.success("Cadastro realizado com sucesso!");
-            if (response.data.status) {
-                setLoadingSignIn(false);
+            if (response.status === 201) {  
+                setLoadingSignIn(true);
                 const responseLogin = await api.put("/api/players/login", { email, password });
                 localStorage.setItem('token', responseLogin.data.token);
+                setLoadingSignIn(false);
                 history.push("/lancar-pontos");
-                toast.success("Bem-vindo ao myGameScore! Que tal começar a cadastrar suas partidas?");
+                toast.success({name} + ", bem-vindo ao myGameScore! Que tal começar a cadastrar suas partidas?");
             }
         })
         .catch((error) => {
-            console.log(error);
             setLoadingAuth(false);
-            toast.error(`Erro ao cadastrar jogador: ${error.message}`);
-            console.log("Erro ao cadastrar jogador: " + error.message);
+            toast.error(`Erro ao cadastrar jogador: ${error.response.data}`);
         });
     }
 
     function signOut() {
         setLoadingSignOut(true);
-        console.log(signed);
         setTimeout(() => {
             localStorage.clear();
             history.push("/");
-            console.log(signed);
             setLoadingSignOut(false);
         }, 1000);
     }
