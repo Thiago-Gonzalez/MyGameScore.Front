@@ -6,27 +6,50 @@ import { Container, Table } from 'react-bootstrap';
 import './maiorespontuacoes.css';
 
 import basketball from '../../assets/basketball.png';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import api from '../../services/api';
 
 export const MaioresPontuacoes = () => {
-    const [matches, setMatches] = useState([{
-        date: "12/03/2022",
-        score: 32,
-        playerName: "Thiago"
-    }, {
-        date: "20/05/2022",
-        score: 46,
-        playerName: "Yago"
-    },
-    {
-        date: "17/07/2022",
-        score: 37,
-        playerName: "Romulo"
-    }, {
-        date: "18/07/2022",
-        score: 35,
-        playerName: "Cayo"
-    }]);
+    const [token] = useState(localStorage.getItem('token'));
+    const [matches, setMatches] = useState([]);
+    const [loadingMatches, setLoadingMatches] = useState(false);
+
+    useEffect(() => {
+        async function loadMatches() {
+            setLoadingMatches(true);
+            await api.get("/api/matches", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    setLoadingMatches(false);
+                    setMatches(response.data);
+                }
+                setLoadingMatches(false);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
+    }, [token]);
+
+    if (loadingMatches) {
+        return(
+            <div id="maiores-pontuacoes-page">
+                <NavbarComponent />
+                <Container className="mp-content">
+                    <img src={basketball} alt="Imagem ilustrativa de cesta de basquete" />
+                    <div>
+                        <h1>Maiores Pontuações</h1>
+                        <p>Carregando dados...</p>
+                    </div>
+                </Container>
+                <FooterComponent />
+            </div>
+        );
+    }
 
     return (
         <div id="maiores-pontuacoes-page">
