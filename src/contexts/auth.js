@@ -21,7 +21,7 @@ export default function AuthProvider({
 
         function checkUser() {
             setSigned(!!localStorage.getItem('token'));
-            setPlayerId(localStorage.getItem('playerId'));
+            setPlayerId(parseInt(localStorage.getItem('playerId')));
         }
 
         checkUser();

@@ -27,11 +27,14 @@ export const LancarPontos = () => {
 
         if (date !== null && score !== '' && score >= 0) {
             setLoading(true);
+            console.log(typeof(playedId));
+            console.log(playerId);
             await api.post("/api/matches", {
-                date, score, playerId
+                date, score, idPlayer:playerId
             }, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
                 }
             })
             .then(response => {
@@ -45,6 +48,7 @@ export const LancarPontos = () => {
             .catch(error => {
                 setLoading(false);
                 toast.error(`Erro ao cadastrar partida: ${error.response.data}`)
+                console.log(error.response.data);
             })
         } else {
             toast.warning("Preencha todos os campos!");
@@ -65,7 +69,7 @@ export const LancarPontos = () => {
                         </div>
                         <div className='label-input'>
                             <label>Pontuação obtida</label>
-                            <input type="number" value={score} onChange={ (e) => setScore(e.target.value)} />
+                            <input type="number" value={score} onChange={ (e) => setScore(parseInt(e.target.value))} />
                         </div>
                         <button className='btn' type='submit'>{loading ? 'Salvando...' : 'Salvar'}</button>
                     </form>
