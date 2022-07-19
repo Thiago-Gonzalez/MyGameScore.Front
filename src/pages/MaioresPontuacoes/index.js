@@ -30,6 +30,7 @@ export const MaioresPontuacoes = () => {
                 setLoadingMatches(false);
             })
             .catch(err => {
+                setLoadingMatches(false);
                 console.log(err);
             })
         }
