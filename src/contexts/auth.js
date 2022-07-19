@@ -14,6 +14,16 @@ export default function AuthProvider({
     const [loadingAuth, setLoadingAuth] = useState(false);
     const [loadingSignOut, setLoadingSignOut] = useState(false);
     const [loadingSignIn, setLoadingSignIn] = useState(false);
+    const [signed, setSigned] = useState(false);
+
+    useEffect(() => {
+
+        function checkUser() {
+            setSigned(!!localStorage.getItem('token'));
+        }
+
+        checkUser();
+    }, []);
 
 
     async function signIn(email, password) {
@@ -70,7 +80,7 @@ export default function AuthProvider({
         <AuthContext.Provider 
             value = {
                 {
-                    signed: !!localStorage.getItem('token'),
+                    signed,
                     signOut,
                     signIn,
                     signUp,
