@@ -1,0 +1,22 @@
+#ver-partidas-page .vp-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 359.4px;
+}
+
+.vp-content img {
+    margin-right: 50px;
+}
+
+.vp-content table {
+    color: #F45B24;
+}
+
+.vp-content table tbody, .vp-content table td, .vp-content table th {
+    border: none;
+}
+
+.vp-content .points {
+    text-align: center;
+}

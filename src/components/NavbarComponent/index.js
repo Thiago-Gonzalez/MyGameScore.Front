@@ -20,6 +20,7 @@ export const NavbarComponent = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav as="ul" className="me-auto">
                         <Nav.Link href="/lancar-pontos">Lançar pontos</Nav.Link>
+                        <Nav.Link href="/ver-partidas">Ver partidas</Nav.Link>
                         <Nav.Link href="/ver-resultados">Ver resultados</Nav.Link>
                     </Nav>
                     <Button variant='link'>Sair</Button>
