@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from 'react-toastify';
-import { useHistory, withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import api from '../services/api';
 
 export const AuthContext = createContext({});
