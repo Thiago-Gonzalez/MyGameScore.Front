@@ -12,9 +12,11 @@
     font-size: var(--bs-nav-link-font-size);
     color: #c7c8c9;
     font-weight: 400;
+    border: none;
 }
 
 .navbar button:hover {
     color: #c7c8c9;
     text-decoration: underline;
+    background-color: #212529;
 }

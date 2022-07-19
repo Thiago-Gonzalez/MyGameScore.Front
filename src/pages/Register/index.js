@@ -30,7 +30,7 @@ export const SignUp = () => {
                 <form onSubmit={handleSumbit}>
                     <h1>Cadastre-se no myGameScore</h1>
                     <input type="text" placeholder="Nome" value={name} onChange={ (e) => SetName(e.target.value)} />
-                    <input type="text" placeholder="Email" value={email} onChange={ (e) => setEmail(e.target.value)} />
+                    <input type="email" placeholder="Email" value={email} onChange={ (e) => setEmail(e.target.value)} />
                     <input type="password" placeholder="Senha" value={password} onChange={ (e) => setPassword(e.target.value)} />
                     <button className='btn' type="submit">Cadastrar</button>
                 </form>

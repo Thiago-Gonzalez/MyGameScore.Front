@@ -25,15 +25,22 @@ body {
 }
 
 .btn, a {
+  color:#F45B24;
   text-decoration: none;
   font-size: 1.125rem;
 }
 
 .btn {
-  border-radius: 20px;
+  border: 1px solid #F45B24;
+  border-radius: 10px;
   padding: 7px 20px;
   cursor: pointer;
   transition: 0.4s;
+}
+
+.btn:hover {
+  color: #FFF;
+  background-color: #F45B24;
 }
 
 a, a:hover {
@@ -45,6 +52,7 @@ a:hover {
 }
 
 h1 {
+  color: #F45B24;
   font-size: 2.25rem;
 }
 

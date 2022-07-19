@@ -28,7 +28,7 @@ export const SignIn = () => {
 
                 <form onSubmit={handleSumbit}>
                     <h1>Acesse myGameScore</h1>
-                    <input type="text" placeholder="Email" value={email} onChange={ (e) => setEmail(e.target.value)} />
+                    <input type="email" placeholder="Email" value={email} onChange={ (e) => setEmail(e.target.value)} />
                     <input type="password" placeholder="Senha" value={password} onChange={ (e) => setPassword(e.target.value)} />
                     <button className='btn' type="submit">Acessar</button>
                 </form>
