@@ -33,6 +33,8 @@ export const MaioresPontuacoes = () => {
                 console.log(err);
             })
         }
+
+        loadMatches();
     }, [token]);
 
     if (loadingMatches) {
