@@ -23,6 +23,7 @@ export const SignUpPage = () => {
             setName('');
             setEmail('');
             setPassword('');
+            setConfirmPassword('');
         } else if (name === '' || email === '' || password === '' || confirmPassword === '') {
             toast.warning('Preencha todos os campos!');
         } else if (password !== confirmPassword) {

@@ -8,12 +8,12 @@ import { toast } from 'react-toastify';
 import './lancarpontos.css';
 
 import basketball from '../../assets/basketball.png';
-import AuthProvider from '../../contexts/auth';
+import { AuthContext } from '../../contexts/auth';
 
 import api from '../../services/api';
 
 export const LancarPontos = () => {
-    const { playerId } = useContext(AuthProvider);
+    const { playerId } = useContext(AuthContext);
 
     const [token] = useState(localStorage.getItem('token'));
 

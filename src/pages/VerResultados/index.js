@@ -7,11 +7,11 @@ import './verresultados.css';
 
 import basketball from '../../assets/basketball.png';
 import { useContext, useEffect, useState } from 'react';
-import AuthProvider from '../../contexts/auth';
+import { AuthContext } from '../../contexts/auth';
 import api from '../../services/api';
 
 export const VerResultados = () => {
-    const { playerId } = useContext(AuthProvider);
+    const { playerId } = useContext(AuthContext);
     const [token] = useState(localStorage.getItem('token'));
 
     const [matches, setMatches] = useState([]);
