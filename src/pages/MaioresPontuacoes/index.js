@@ -8,6 +8,7 @@ import './maiorespontuacoes.css';
 import basketball from '../../assets/basketball.png';
 import { useEffect, useState } from 'react';
 import api from '../../services/api';
+import { formatData } from '../../utils';
 
 export const MaioresPontuacoes = () => {
     const [token] = useState(localStorage.getItem('token'));
@@ -89,7 +90,7 @@ export const MaioresPontuacoes = () => {
                                                 <td>{index+1}</td>
                                                 <td data-aria-label='Jogador'>{match.playerName}</td>
                                                 <td className='points' data-lavel="Pontos">{match.score}</td>
-                                                <td data-label="Data">{match.date}</td>
+                                                <td data-label="Data">{formatData(match.date)}</td>
                                             </tr>
                                         );
                                 })}

@@ -7,6 +7,7 @@ import { NavbarComponent } from "../../components/NavbarComponent";
 import './notfound.css';
 
 export const NotFound = () => {
+
     return(
         <div className="notfound-page">
             <NavbarComponent />

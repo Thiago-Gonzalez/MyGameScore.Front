@@ -2,7 +2,7 @@ import { NavbarComponent } from '../../components/NavbarComponent';
 import { FooterComponent } from '../../components/FooterComponent';
 
 import { Container } from 'react-bootstrap';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import './lancarpontos.css';
@@ -11,16 +11,26 @@ import basketball from '../../assets/basketball.png';
 import { AuthContext } from '../../contexts/auth';
 
 import api from '../../services/api';
+import { formatData } from '../../utils';
+import { useHistory } from 'react-router-dom';
 
 export const LancarPontos = () => {
-    const { playerId } = useContext(AuthContext);
+    const { playerId, signed } = useContext(AuthContext);
 
     const [token] = useState(localStorage.getItem('token'));
 
-    const [date, setDate] = useState(null);
+    const [date, setDate] = useState(formatData(new Date(), "yyyy/MM/dd"));
     const [score, setScore] = useState();
 
     const [loading, setLoading] = useState(false);
+
+    const history = useHistory();
+
+    useEffect(() => {
+        if (!signed) {
+            history.push("/");
+        }
+    }, [signed]);
 
     async function handleSubmit(e) {
         e.preventDefault();

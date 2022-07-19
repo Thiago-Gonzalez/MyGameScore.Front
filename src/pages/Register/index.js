@@ -6,6 +6,7 @@ import { AuthContext } from "../../contexts/auth";
 import basketball from '../../assets/basketball.png';
 
 import './register.css';
+import { useHistory } from "react-router-dom";
 
 export const SignUpPage = () => {
     const { signUp, loadingAuth, loadingSignIn } = useContext(AuthContext);
@@ -14,12 +15,15 @@ export const SignUpPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    
+
+    const history = useHistory();
 
     function handleSumbit(e) {
         e.preventDefault();
 
         if (name !== '' && email !== '' && password !== '' && confirmPassword !== '' && password === confirmPassword) {
-            signUp(name, email, password);
+            signUp(name, email, password).then(history.push("/lancar-pontos"));
             setName('');
             setEmail('');
             setPassword('');

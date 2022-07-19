@@ -1,22 +1,34 @@
 import { toast } from "react-toastify";
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import './login.css';
 
 import basketball from '../../assets/basketball.png';
 import { AuthContext } from "../../contexts/auth";
+import { useHistory } from "react-router-dom";
 
 export const SignIn = () => {
-    const { signIn, loadingAuth } = useContext(AuthContext);
+    const { signIn, loadingAuth, signed } = useContext(AuthContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const history = useHistory();
+
+    useEffect(() => {
+        console.log(signed);
+        if (signed) {
+            history.push("/lancar-pontos");
+        }
+
+    }, []);
 
     function handleSumbit(e) {
         e.preventDefault();
 
         if (email !== '' && password !== '') {
             signIn(email, password);
+            history.push("/lancar-pontos");
             setEmail('');
             setPassword('');
         } else if (email === '' || password === '') {

@@ -1,16 +1,13 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from 'react-toastify';
-import { useHistory } from "react-router-dom";
 import api from '../services/api';
 
 export const AuthContext = createContext({});
 
 export default function AuthProvider({
-    children
+    children,
+    props
 }) {
-
-    const history = useHistory();
-
     const [loadingAuth, setLoadingAuth] = useState(false);
     const [loadingSignOut, setLoadingSignOut] = useState(false);
     const [loadingSignIn, setLoadingSignIn] = useState(false);
@@ -19,8 +16,9 @@ export default function AuthProvider({
 
     useEffect(() => {
 
-        function checkUser() {
-            setSigned(!!localStorage.getItem('token'));
+        async function checkUser() {
+            const token = localStorage.getItem('token');
+            await setSigned(token ? true : false);
             setPlayerId(parseInt(localStorage.getItem('playerId')));
         }
 
@@ -33,10 +31,13 @@ export default function AuthProvider({
 
         await api.put("/api/players/login", { email, password })
         .then((response) => {
+            const token = response.data.token;
+            const playerId = parseInt(response.data.id);
+            setSigned(token ? true : false);
+            setPlayerId(playerId);
+            localStorage.setItem('token', token);
+            localStorage.setItem('playerId',playerId);
             setLoadingAuth(false);
-            localStorage.setItem('token', response.data.token);
-            localStorage.setItem('playerId', response.data.id);
-            history.push("/lancar-pontos");
             toast.success("Bem-vindo de volta!");
         })
         .catch((error) => {
@@ -59,7 +60,6 @@ export default function AuthProvider({
                 const responseLogin = await api.put("/api/players/login", { email, password });
                 localStorage.setItem('token', responseLogin.data.token);
                 setLoadingSignIn(false);
-                history.push("/lancar-pontos");
                 toast.success({name} + ", bem-vindo ao myGameScore! Que tal começar a cadastrar suas partidas?");
             }
         })
@@ -69,13 +69,10 @@ export default function AuthProvider({
         });
     }
 
-    function signOut() {
-        setLoadingSignOut(true);
-        setTimeout(() => {
-            localStorage.clear();
-            history.push("/");
-            setLoadingSignOut(false);
-        }, 1000);
+    async function signOut() {
+        await localStorage.clear();
+        setLoadingSignOut(false);
+        setSigned(false);
     }
 
     return ( 
@@ -88,6 +85,7 @@ export default function AuthProvider({
                     signUp,
                     loadingAuth,
                     loadingSignOut,
+                    setLoadingSignOut,
                     loadingSignIn,
                     playerId
                 }
