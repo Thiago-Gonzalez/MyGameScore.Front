@@ -6,16 +6,56 @@ import { Container, Table } from 'react-bootstrap';
 import './verpartidas.css';
 
 import basketball from '../../assets/basketball.png';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import AuthProvider from '../../contexts/auth';
+
+import api from '../../services/api';
 
 export const VerPartidas = () => {
-    const [matches, setMatches] = useState([{
-        date: "12/03/2022",
-        score: 32
-    }, {
-        date: "20/03/2022",
-        score: 46
-    }]);
+    const [matches, setMatches] = useState([]);
+    const { playerId } = useContext(AuthProvider);
+    const [token] = useState(localStorage.getItem('token'));
+
+    const [loadingMatches, setLoadingMatches] = useState(false);
+
+    useEffect(() => {
+        async function loadMatches() {
+            setLoadingMatches(true);
+            await api.get(`/api/players/${playerId}/matches`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    setMatches(response.data);
+                }
+                setLoadingMatches(false);
+            })
+            .catch(err => {
+                setLoadingMatches(false);
+                console.log(err);
+            })
+        }
+
+        loadMatches();
+    }, [playerId, token]);
+
+    if (loadingMatches) {
+        return (
+            <div id="ver-partidas-page">
+                <NavbarComponent />
+                <Container className='vp-content'>
+                    <img src={basketball} alt="Imagem ilustrativa de cesta de basquete" />
+                    <div>
+                        <h1>Suas partidas</h1>
+                        <p>Carregando partidas...</p>
+                    </div>
+                </Container>
+                <FooterComponent />
+            </div>
+        );
+    }
 
     return(
         <div id="ver-partidas-page">
