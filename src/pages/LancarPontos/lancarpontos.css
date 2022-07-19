@@ -1,0 +1,26 @@
+#lancar-pontos-page .lp-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 387.4px;
+}
+
+.lp-content img {
+    margin-right: 50px;
+}
+
+.label-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-match form input {
+    border: 1px solid #F45B24;
+    color: #F45B24;
+    margin-bottom: 20px;
+}
+
+label {
+    color: #F45B24;
+    margin-bottom: 5px;
+}

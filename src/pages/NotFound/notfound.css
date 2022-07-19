@@ -1,0 +1,31 @@
+.notfound-page {
+    height: 100%;
+}
+
+.notfound-page .container-fluid {
+    display: flex;
+    justify-content: center;
+    padding: 30px 90px;
+    min-height: 387.4px;
+}
+
+.notfound-page h1, p { 
+    color: #F45B24;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.info-data {
+    display: flex;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.crybasketball {
+    height: 150px;
+    width: 150px;
+}

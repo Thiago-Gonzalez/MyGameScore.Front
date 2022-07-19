@@ -10,6 +10,61 @@
     outline: 0;
 }
 
+html, body, #root {
+  height: 100%;
+  max-width: 100%;
+}
+
 body {
   font: 16px "Montserrat", sans-serif;
+}
+
+.btn, a, h1, h2, h3, h4, h5, h6 {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+}
+
+.btn, a {
+  color:#F45B24;
+  text-decoration: none;
+  font-size: 1.125rem;
+}
+
+.btn {
+  border: 1px solid #F45B24;
+  border-radius: 10px;
+  padding: 7px 20px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.btn:hover {
+  color: #FFF;
+  background-color: #F45B24;
+}
+
+a, a:hover {
+  color: #F45B24;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1 {
+  color: #F45B24;
+  font-size: 2.25rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.125rem;
+}
+
+p {
+  font-weight: 400;
+  font-size: 1.125em;
 }
