@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { AuthContext } from "../../contexts/auth";
 
@@ -9,7 +9,7 @@ import './register.css';
 import { useHistory } from "react-router-dom";
 
 export const SignUpPage = () => {
-    const { signUp, loadingAuth, loadingSignIn } = useContext(AuthContext);
+    const { signUp, loadingAuth, loadingSignIn, signed, submited, setSubmited } = useContext(AuthContext);
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -19,15 +19,26 @@ export const SignUpPage = () => {
 
     const history = useHistory();
 
+    useEffect(() => {
+        console.log(signed);
+        if (signed) {
+            history.push("/ver-partidas");
+        }
+
+    }, [signed]);
+
     function handleSumbit(e) {
         e.preventDefault();
 
         if (name !== '' && email !== '' && password !== '' && confirmPassword !== '' && password === confirmPassword) {
-            signUp(name, email, password).then(history.push("/lancar-pontos"));
+            signUp(name, email, password);
             setName('');
             setEmail('');
             setPassword('');
             setConfirmPassword('');
+            if (submited) {
+                history.push("/ver-partidas")
+            }
         } else if (name === '' || email === '' || password === '' || confirmPassword === '') {
             toast.warning('Preencha todos os campos!');
         } else if (password !== confirmPassword) {
@@ -55,7 +66,7 @@ export const SignUpPage = () => {
                     )}
                 </form>
 
-                <a className="redirect-btn" href="/">Já possui conta? Entre</a>
+                <a className="redirect-btn" href="/login">Já possui conta? Entre</a>
             </div>
         </div>
     );

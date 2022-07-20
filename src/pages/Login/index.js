@@ -18,17 +18,16 @@ export const SignIn = () => {
     useEffect(() => {
         console.log(signed);
         if (signed) {
-            history.push("/lancar-pontos");
+            history.push("/ver-partidas");
         }
 
-    }, []);
+    }, [signed]);
 
     function handleSumbit(e) {
         e.preventDefault();
 
         if (email !== '' && password !== '') {
-            signIn(email, password);
-            history.push("/lancar-pontos");
+            signIn(email, password).then(history.push("/ver-partidas"));
             setEmail('');
             setPassword('');
         } else if (email === '' || password === '') {
@@ -50,7 +49,7 @@ export const SignIn = () => {
                     <button className='btn' type="submit">{loadingAuth ? 'Acessando...' : 'Acessar'}</button>
                 </form>
 
-                <a className="redirect-btn" href="/cadastro">Ainda não possui uma conta? Cadastre-se</a>
+                <a className="redirect-btn" href="/">Ainda não possui uma conta? Cadastre-se</a>
             </div>
         </div>
     );

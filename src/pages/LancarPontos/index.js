@@ -24,27 +24,16 @@ export const LancarPontos = () => {
 
     const [loading, setLoading] = useState(false);
 
-    const history = useHistory();
-
-    useEffect(() => {
-        if (!signed) {
-            history.push("/");
-        }
-    }, [signed]);
-
     async function handleSubmit(e) {
         e.preventDefault();
 
         if (date !== null && score !== '' && score >= 0) {
             setLoading(true);
-            console.log(typeof(playedId));
-            console.log(playerId);
             await api.post("/api/matches", {
                 date, score, idPlayer:playerId
             }, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json"
                 }
             })
             .then(response => {

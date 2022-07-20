@@ -5,8 +5,7 @@ import api from '../services/api';
 export const AuthContext = createContext({});
 
 export default function AuthProvider({
-    children,
-    props
+    children
 }) {
     const [loadingAuth, setLoadingAuth] = useState(false);
     const [loadingSignOut, setLoadingSignOut] = useState(false);
@@ -60,7 +59,7 @@ export default function AuthProvider({
                 const responseLogin = await api.put("/api/players/login", { email, password });
                 localStorage.setItem('token', responseLogin.data.token);
                 setLoadingSignIn(false);
-                toast.success({name} + ", bem-vindo ao myGameScore! Que tal começar a cadastrar suas partidas?");
+                toast.success("Bem-vindo ao myGameScore! Que tal começar a cadastrar suas partidas?");
             }
         })
         .catch((error) => {

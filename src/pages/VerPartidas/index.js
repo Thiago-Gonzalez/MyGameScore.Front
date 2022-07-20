@@ -11,10 +11,11 @@ import { AuthContext } from "../../contexts/auth";
 
 import api from "../../services/api";
 import { formatData } from "../../utils";
+import { useHistory } from "react-router-dom";
 
 export const VerPartidas = () => {
   const [matches, setMatches] = useState([]);
-  const { playerId } = useContext(AuthContext);
+  const { playerId, signed } = useContext(AuthContext);
   const [token] = useState(localStorage.getItem("token"));
 
   const [loadingMatches, setLoadingMatches] = useState(false);

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Button, Navbar, Nav, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
@@ -14,8 +14,7 @@ export const NavbarComponent = () => {
 
     function logout() {
         setLoadingSignOut(true);
-        signOut();
-        history.push("/cadastro");
+        signOut().then(history.push("/login"));
     }
 
     return(

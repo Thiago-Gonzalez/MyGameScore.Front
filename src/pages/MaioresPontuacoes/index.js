@@ -6,14 +6,18 @@ import { Container, Table } from 'react-bootstrap';
 import './maiorespontuacoes.css';
 
 import basketball from '../../assets/basketball.png';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import api from '../../services/api';
 import { formatData } from '../../utils';
+import { useHistory } from 'react-router-dom';
+import { AuthContext } from '../../contexts/auth';
 
 export const MaioresPontuacoes = () => {
+    const { signed } = useContext(AuthContext);
     const [token] = useState(localStorage.getItem('token'));
     const [matches, setMatches] = useState([]);
     const [loadingMatches, setLoadingMatches] = useState(false);
+
 
     useEffect(() => {
         async function loadMatches() {
