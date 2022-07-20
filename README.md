@@ -61,4 +61,4 @@
   <li>Pronto, agora você já está autenticado e já pode realizar quaisquer requisições nas demais rotas da api</li>
 </ol>
 
-<p>OBS.: Para o desenvolvimento do projeto, meus maiores desafios foram com o Front-end, no qual tive problemas com redirecionamento de rotas, devido a isso, o Front ainda se encontra com alguns problemas, mas com um pouco de paciência, poderá tirar um bom proveito!</p>
+<p>OBS.: Para o desenvolvimento do projeto, meus maiores desafios foram com o Front-end, no qual tive problemas com redirecionamento de rotas e configurações das rotas privadas, devido a isso, o Front ainda se encontra com alguns problemas, mas com um pouco de paciência, poderá tirar um bom proveito! Dito isso, caso não esteja conseguindo testar o front da melhor maneira possível, recomendo que vá na pasta routes, no arquivo index.js, retire as rotas privadas de dentro da renderização condicional, dessa forma estará liberado o acesso a todas as rotas, mas ainda será necessário autenticar-se, pois faz-se necessária a autenticação para que no cabeçalho das requisições para a api devem sem enviado o token, que é gerado no momento da autenticação.</p>
