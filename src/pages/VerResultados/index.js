@@ -6,17 +6,14 @@ import { Container, Table } from "react-bootstrap";
 import "./verresultados.css";
 
 import basketball from "../../assets/basketball.png";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../contexts/auth";
+import { useEffect, useState } from "react";
 import api from "../../services/api";
-import { formatData } from "../../utils";
-import { useHistory } from "react-router-dom";
+import { formatDateBr } from "../../utils";
+import { Link } from "react-router-dom";
 
 export const VerResultados = () => {
-  const { playerId, signed } = useContext(AuthContext);
   const [token] = useState(localStorage.getItem("token"));
-
-  const [matches, setMatches] = useState([]);
+  const [playerId] = useState(localStorage.getItem('playerId'));
 
   const [gamesPlayed, setGamesPLayed] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
@@ -27,6 +24,7 @@ export const VerResultados = () => {
   const [seasonStart, setSeasonStart] = useState(null);
   const [seasonFinish, setSeasonFinish] = useState(null);
   const [loadingStats, setLoadingStats] = useState(true);
+  const [matches, setMatches] = useState(null);
 
   useEffect(() => {
     if (playerId) {
@@ -37,7 +35,7 @@ export const VerResultados = () => {
               Authorization: `Bearer ${token}`,
             },
           })
-          .then((response) => {
+          .then(async (response) => {
             if (response.status === 200) {
               setGamesPLayed(response.data.gamesPlayed);
               setTotalScore(response.data.totalScore);
@@ -45,12 +43,13 @@ export const VerResultados = () => {
               setHighestScore(response.data.highestScore);
               setLowestScore(response.data.lowestScore);
               setTimesRecordWasBeaten(response.data.timesRecordWasBeaten);
-              loadMatches();
+              await loadMatches();
             }
             setLoadingStats(false);
           })
           .catch((err) => {
             setLoadingStats(false);
+            console.log(err);
           });
       }
 
@@ -63,11 +62,14 @@ export const VerResultados = () => {
           })
           .then((response) => {
             if (response.status === 200) {
-              setMatches(response.data);
-              setSeasonStart(response.data[0].date);
-              setSeasonFinish(response.data[response.data.length - 1].date);
-              setLoadingStats(false);
+              setMatches(response.data
+                .sort((m1, m2) => {
+                  return new Date(m1.date) - new Date(m2.date)
+              }));
+              setSeasonStart(matches[0].date);
+              setSeasonFinish(matches[matches.length - 1].date);
             }
+            setLoadingStats(false);
           })
           .catch((err) => {
             console.log(err);
@@ -77,7 +79,8 @@ export const VerResultados = () => {
 
       loadStats();
     }
-  }, [playerId, token]);
+    setLoadingStats(false);
+  }, [playerId, token, matches]);
 
   if (loadingStats) {
     return (
@@ -103,7 +106,7 @@ export const VerResultados = () => {
         <Table>
           {gamesPlayed === 0 ? (
             <>
-            <thead>
+              <thead>
                 <tr>
                   <th className="heading" scope="col">
                     Resultados
@@ -115,7 +118,7 @@ export const VerResultados = () => {
                     Oops, parece que você ainda não possui partidas cadastradas! Que
                     tal cadastrar uma partida para começar a visualizar suas
                     estatísticas?
-                    <a href="/lancar-pontos">Cadastrar</a>
+                    <Link to="/lancar-pontos">Cadastrar</Link>
                 </tr>
               </tbody>
             </>
@@ -127,7 +130,7 @@ export const VerResultados = () => {
                     Resultados
                   </th>
                   <th className="season" scope="col">
-                    {formatData(seasonStart)} até {formatData(seasonFinish)}
+                    {formatDateBr(seasonStart)} até {formatDateBr(seasonFinish)}
                   </th>
                 </tr>
               </thead>
@@ -142,7 +145,7 @@ export const VerResultados = () => {
                 </tr>
                 <tr>
                   <th>Média de pontos por jogo</th>
-                  <td>{scoreAverage}</td>
+                  <td>{scoreAverage.toFixed(2)}</td>
                 </tr>
                 <tr>
                   <th>Maior pontuação em um jogo</th>

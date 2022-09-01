@@ -6,14 +6,12 @@ import { Container, Table } from 'react-bootstrap';
 import './maiorespontuacoes.css';
 
 import basketball from '../../assets/basketball.png';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../../services/api';
-import { formatData } from '../../utils';
-import { useHistory } from 'react-router-dom';
-import { AuthContext } from '../../contexts/auth';
+import { formatDateBr } from '../../utils';
+import { Link } from 'react-router-dom';
 
 export const MaioresPontuacoes = () => {
-    const { signed } = useContext(AuthContext);
     const [token] = useState(localStorage.getItem('token'));
     const [matches, setMatches] = useState([]);
     const [loadingMatches, setLoadingMatches] = useState(false);
@@ -29,7 +27,6 @@ export const MaioresPontuacoes = () => {
             })
             .then(response => {
                 if (response.status === 200) {
-                    setLoadingMatches(false);
                     setMatches(response.data);
                 }
                 setLoadingMatches(false);
@@ -69,7 +66,7 @@ export const MaioresPontuacoes = () => {
                     {matches.length === 0 ? (
                         <>
                             <p>
-                                Ooops, parece que nenhum jogador já cadastrou partidas! <a href="/lancar-pontos">Seja o primeiro</a>
+                                Ooops, parece que nenhum jogador já cadastrou partidas! <Link to="/lancar-pontos">Seja o primeiro</Link>
                             </p>
                         </>
                     ) : (
@@ -88,13 +85,14 @@ export const MaioresPontuacoes = () => {
                                         return m1.score - m2.score;
                                     })
                                     .reverse()
+                                    .slice(0, 10)
                                     .map((match, index) => {
                                         return(
                                             <tr key={index}>
                                                 <td>{index+1}</td>
                                                 <td data-aria-label='Jogador'>{match.playerName}</td>
                                                 <td className='points' data-lavel="Pontos">{match.score}</td>
-                                                <td data-label="Data">{formatData(match.date)}</td>
+                                                <td data-label="Data">{formatDateBr(match.date)}</td>
                                             </tr>
                                         );
                                 })}

@@ -6,19 +6,26 @@ import { Container, Table } from "react-bootstrap";
 import "./verpartidas.css";
 
 import basketball from "../../assets/basketball.png";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../contexts/auth";
+import { useEffect, useState } from "react";
 
 import api from "../../services/api";
-import { formatData } from "../../utils";
-import { useHistory } from "react-router-dom";
+import { formatDateBr } from "../../utils";
+import { Link } from "react-router-dom";
+import { FiEdit2, FiTrash2 } from 'react-icons/fi';
+import { DeleteMatchModal } from "../../components/DeleteMatchModal";
+import { EditMatchModal } from "../../components/EditMatchModal";
 
 export const VerPartidas = () => {
   const [matches, setMatches] = useState([]);
-  const { playerId, signed } = useContext(AuthContext);
   const [token] = useState(localStorage.getItem("token"));
+  const [playerId] = useState(localStorage.getItem('playerId'));
 
   const [loadingMatches, setLoadingMatches] = useState(false);
+
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const [currentMatch, setCurrentMatch] = useState();
 
   useEffect(() => {
     if (playerId) {
@@ -45,6 +52,16 @@ export const VerPartidas = () => {
       loadMatches();
     }
   }, [playerId, token]);
+
+  function toggleDeleteModal(match) {
+    setShowDeleteModal(!showDeleteModal);
+    setCurrentMatch(match);
+  }
+
+  function toggleEditModal(match) {
+    setShowEditModal(!showEditModal);
+    setCurrentMatch(match);
+  }
 
   if (loadingMatches) {
     return (
@@ -73,7 +90,7 @@ export const VerPartidas = () => {
             <>
               <p>
                 Você ainda não possui partidas cadastradas!{" "}
-                <a href="/lancar-pontos">Cadastrar partida</a>
+                <Link to="/lancar-pontos">Cadastrar partida</Link>
               </p>
             </>
           ) : (
@@ -81,21 +98,33 @@ export const VerPartidas = () => {
               <thead>
                 <tr>
                   <th scope="col">Data</th>
-                  <th className="points" scope="col">
-                    Pontos
-                  </th>
+                  <th className="points" scope="col">Pontos</th>
+                  <th scope="col">#</th>
                 </tr>
               </thead>
               <tbody>
-                {matches.map((match, index) => {
-                  return (
-                    <tr key={index}>
-                      <td data-label="Data">{formatData(match.date)}</td>
-                      <td className="points" data-lavel="Pontos">
-                        {match.score}
-                      </td>
-                    </tr>
-                  );
+                {matches
+                  .sort((m1, m2) => {
+                      return new Date(m1.date) - new Date(m2.date)
+                  })
+                  .reverse()
+                  .map((match, index) => {
+                    return (
+                      <tr key={index}>
+                        <td data-label="Data">{formatDateBr(match.date)}</td>
+                        <td className="points" data-label="Pontos">
+                          {match.score}
+                        </td>
+                        <td data-label="#">
+                          <button className="action" style={{ backgroundColor: '#F6A935'}} onClick={ () => toggleEditModal(match) }>
+                            <FiEdit2 color="#fff" size={17} />
+                          </button>
+                          <button className="action" style={{ backgroundColor: '#B20600'}} onClick={ () => toggleDeleteModal(match) }>
+                            <FiTrash2 color="#fff" size={17} />
+                          </button>
+                        </td>
+                      </tr>
+                    );
                 })}
               </tbody>
             </Table>
@@ -103,6 +132,20 @@ export const VerPartidas = () => {
         </div>
       </Container>
       <FooterComponent />
+
+      {showEditModal && (
+        <EditMatchModal
+          match={currentMatch}
+          close={toggleEditModal}
+        />
+      )}
+
+      {showDeleteModal && (
+        <DeleteMatchModal
+          match={currentMatch}
+          close={toggleDeleteModal}
+        />
+      )}
     </div>
   );
 };

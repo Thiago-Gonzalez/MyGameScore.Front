@@ -6,7 +6,7 @@ import { AuthContext } from "../../contexts/auth";
 import basketball from '../../assets/basketball.png';
 
 import './register.css';
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export const SignUpPage = () => {
     const { signUp, loadingAuth, loadingSignIn, signed, submited, setSubmited } = useContext(AuthContext);
@@ -20,25 +20,19 @@ export const SignUpPage = () => {
     const history = useHistory();
 
     useEffect(() => {
-        console.log(signed);
-        if (signed) {
-            history.push("/ver-partidas");
-        }
 
     }, [signed]);
 
-    function handleSumbit(e) {
+    async function handleSumbit(e) {
         e.preventDefault();
 
         if (name !== '' && email !== '' && password !== '' && confirmPassword !== '' && password === confirmPassword) {
-            signUp(name, email, password);
+            await signUp(name, email, password);
+            signed && history.push("/ver-partidas");
             setName('');
             setEmail('');
             setPassword('');
             setConfirmPassword('');
-            if (submited) {
-                history.push("/ver-partidas")
-            }
         } else if (name === '' || email === '' || password === '' || confirmPassword === '') {
             toast.warning('Preencha todos os campos!');
         } else if (password !== confirmPassword) {
@@ -66,7 +60,7 @@ export const SignUpPage = () => {
                     )}
                 </form>
 
-                <a className="redirect-btn" href="/login">Já possui conta? Entre</a>
+                <Link className="redirect-btn" to="/login">Já possui conta? Entre</Link>
             </div>
         </div>
     );

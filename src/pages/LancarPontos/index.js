@@ -2,24 +2,25 @@ import { NavbarComponent } from '../../components/NavbarComponent';
 import { FooterComponent } from '../../components/FooterComponent';
 
 import { Container } from 'react-bootstrap';
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 import './lancarpontos.css';
 
 import basketball from '../../assets/basketball.png';
-import { AuthContext } from '../../contexts/auth';
 
 import api from '../../services/api';
-import { formatData } from '../../utils';
+import { formatDateBr } from '../../utils';
 import { useHistory } from 'react-router-dom';
 
 export const LancarPontos = () => {
-    const { playerId, signed } = useContext(AuthContext);
+
+    const history = useHistory();
 
     const [token] = useState(localStorage.getItem('token'));
+    const [playerId] = useState(localStorage.getItem('playerId'));
 
-    const [date, setDate] = useState(formatData(new Date(), "yyyy/MM/dd"));
+    const [date, setDate] = useState(formatDateBr(new Date(), "yyyy/MM/dd"));
     const [score, setScore] = useState();
 
     const [loading, setLoading] = useState(false);
@@ -42,6 +43,7 @@ export const LancarPontos = () => {
                     setDate(null);
                     setScore();
                     toast.success('Partida cadastrada com sucesso!');
+                    history.push("/ver-partidas");
                 }
             })
             .catch(error => {

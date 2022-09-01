@@ -1,33 +1,23 @@
 import { toast } from "react-toastify";
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import './login.css';
 
 import basketball from '../../assets/basketball.png';
 import { AuthContext } from "../../contexts/auth";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const SignIn = () => {
-    const { signIn, loadingAuth, signed } = useContext(AuthContext);
+    const { signIn, loadingAuth } = useContext(AuthContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const history = useHistory();
-
-    useEffect(() => {
-        console.log(signed);
-        if (signed) {
-            history.push("/ver-partidas");
-        }
-
-    }, [signed]);
-
-    function handleSumbit(e) {
+    async function handleSumbit(e) {
         e.preventDefault();
 
         if (email !== '' && password !== '') {
-            signIn(email, password).then(history.push("/ver-partidas"));
+            await signIn(email, password);
             setEmail('');
             setPassword('');
         } else if (email === '' || password === '') {
@@ -49,7 +39,7 @@ export const SignIn = () => {
                     <button className='btn' type="submit">{loadingAuth ? 'Acessando...' : 'Acessar'}</button>
                 </form>
 
-                <a className="redirect-btn" href="/">Ainda não possui uma conta? Cadastre-se</a>
+                <Link className="redirect-btn" to="/">Ainda não possui uma conta? Cadastre-se</Link>
             </div>
         </div>
     );

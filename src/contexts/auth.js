@@ -18,7 +18,9 @@ export default function AuthProvider({
         async function checkUser() {
             const token = localStorage.getItem('token');
             await setSigned(token ? true : false);
-            setPlayerId(parseInt(localStorage.getItem('playerId')));
+            if (signed) {
+                setPlayerId(parseInt(localStorage.getItem('playerId')));
+            }
         }
 
         checkUser();
@@ -32,10 +34,10 @@ export default function AuthProvider({
         .then((response) => {
             const token = response.data.token;
             const playerId = parseInt(response.data.id);
-            setSigned(token ? true : false);
-            setPlayerId(playerId);
             localStorage.setItem('token', token);
             localStorage.setItem('playerId',playerId);
+            setSigned(true);
+            setPlayerId(playerId);
             setLoadingAuth(false);
             toast.success("Bem-vindo de volta!");
         })
@@ -50,16 +52,27 @@ export default function AuthProvider({
     async function signUp(name, email, password) {
         setLoadingAuth(true);
 
+        let token;
+        let playerId;
+
         await api.post("/api/players", { name, email, password })
         .then(async (response) => {
             setLoadingAuth(false);
             toast.success("Cadastro realizado com sucesso!");
             if (response.status === 201) {  
                 setLoadingSignIn(true);
-                const responseLogin = await api.put("/api/players/login", { email, password });
-                localStorage.setItem('token', responseLogin.data.token);
-                setLoadingSignIn(false);
-                toast.success("Bem-vindo ao myGameScore! Que tal começar a cadastrar suas partidas?");
+                await api.put("/api/players/login", { email, password })
+                .then((res) => {
+                    token = res.data.token;
+                    playerId = parseInt(res.data.id);
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('playerId', playerId);
+                    setSigned(true);
+                    setPlayerId(playerId);
+                    setLoadingSignIn(false);
+                    toast.success("Bem-vindo ao myGameScore! Que tal começar a cadastrar suas partidas?");
+                });
+                
             }
         })
         .catch((error) => {
@@ -72,6 +85,7 @@ export default function AuthProvider({
         await localStorage.clear();
         setLoadingSignOut(false);
         setSigned(false);
+        setPlayerId(null);
     }
 
     return ( 

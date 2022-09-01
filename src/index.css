@@ -51,8 +51,11 @@ a:hover {
   text-decoration: underline;
 }
 
-h1 {
+h1, h2 {
   color: #F45B24;
+}
+
+h1 {
   font-size: 2.25rem;
 }
 

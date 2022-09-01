@@ -11,7 +11,7 @@ export const NotFound = () => {
 
     return(
         <div className="notfound-page">
-            <NavbarComponent />
+            <NavbarComponent notfound={true}/>
             <Container fluid>
                 <div className="info">
                     <img className="crybasketball" src={crybasketball} alt="Imagem ilustrativa de uma bola de basquete triste" />

@@ -1,0 +1,13 @@
+.save-btn {
+    background-color: #F65835;
+    color: #fff;
+    border: 1px solid #F65835;
+    border-radius: 20px;
+    padding: 8px;
+    margin-top: 1rem;
+    transition: 0.4;
+}
+
+.save-btn:hover {
+    transform: scale(1.025);
+}
