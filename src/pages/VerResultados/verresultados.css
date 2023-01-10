@@ -1,9 +1,15 @@
-#ver-resultados-page .vr-content {
+#ver-resultados-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.vr-content {
     display: flex;
     flex-direction: row;
     align-items: center;
-    min-height: 450px;
+    min-height: 71.6vh;
 }
+
 
 .vr-content img {
     margin-right: 50px;

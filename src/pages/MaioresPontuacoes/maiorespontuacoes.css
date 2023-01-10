@@ -1,9 +1,13 @@
-#maiores-pontuacoes-page .mp-content {
+#maiores-pontuacoes-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.mp-content {
     display: flex;
     flex-direction: row;
     align-items: center;
-    min-height: 450px;
-    margin: 2rem auto;
+    min-height: 71.6vh;
 }
 
 .mp-content img {

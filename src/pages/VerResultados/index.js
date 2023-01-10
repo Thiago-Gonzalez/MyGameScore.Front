@@ -24,7 +24,7 @@ export const VerResultados = () => {
   const [seasonStart, setSeasonStart] = useState(null);
   const [seasonFinish, setSeasonFinish] = useState(null);
   const [loadingStats, setLoadingStats] = useState(true);
-  const [matches, setMatches] = useState(null);
+  const [matches, setMatches] = useState([]);
 
   useEffect(() => {
     if (playerId) {
@@ -60,15 +60,16 @@ export const VerResultados = () => {
               Authorization: `Bearer ${token}`,
             },
           })
-          .then((response) => {
+          .then(async response => {
             if (response.status === 200) {
-              setMatches(response.data
+              const data = response.data
                 .sort((m1, m2) => {
                   return new Date(m1.date) - new Date(m2.date)
-              }));
-              setSeasonStart(matches[0].date);
-              setSeasonFinish(matches[matches.length - 1].date);
+              });
+
+              setMatches(data);
             }
+
             setLoadingStats(false);
           })
           .catch((err) => {
@@ -80,7 +81,15 @@ export const VerResultados = () => {
       loadStats();
     }
     setLoadingStats(false);
-  }, [playerId, token, matches]);
+  }, []);
+
+  useEffect(() => {
+    if (matches.length > 0 && matches[0].date && matches[matches.length - 1].date) {
+      setSeasonStart(matches[0].date);
+      setSeasonFinish(matches[matches.length - 1].date);
+    }
+    
+  }, [matches])
 
   if (loadingStats) {
     return (

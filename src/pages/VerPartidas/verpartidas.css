@@ -1,8 +1,13 @@
-#ver-partidas-page .vp-content {
+#ver-partidas-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.vp-content {
     display: flex;
     flex-direction: row;
     align-items: center;
-    min-height: 450px;
+    min-height: 71.6vh;
 }
 
 .vp-content img {
