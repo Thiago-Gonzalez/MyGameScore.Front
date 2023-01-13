@@ -30,7 +30,9 @@ export const EditMatchModal = ({match, close}) => {
             })
             .then(() => {
                 toast.success("Dados da partida atualizados com sucesso!");
-                history.go("/ver-partidas");
+                setTimeout(() => {
+                    history.go("/ver-partidas");
+                }, 1000)
             })
             .catch((err) => {
                 toast.error("Ooops, ocorreu um erro inesperado ao editar os dados da partida! Por favor, contatar o desenvolvedor.")
@@ -53,7 +55,9 @@ export const EditMatchModal = ({match, close}) => {
                 </div>
 
                 <div className="modal-row">
-                    <p>Jogador: {match.playerName}</p>
+                    <p>
+                        Jogador: <span className="player-name">{match.playerName}</span>
+                    </p>
                 </div>
 
                 <form onSubmit={updateMatch}>

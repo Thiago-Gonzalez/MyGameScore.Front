@@ -1,0 +1,17 @@
+.label-input {
+    margin-bottom: 1.5rem;
+}
+
+.confirmation .save {
+    color: #F45B24;
+    border: 1px solid #F45B24;
+    border-radius: 10px;
+    background-color: #fff;
+    font-weight: 600;
+    padding: 8px 12px;
+    transition: 0.4;
+}
+
+.confirmation .save:hover {
+    transform: scale(1.125);
+}

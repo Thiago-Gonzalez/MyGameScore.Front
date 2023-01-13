@@ -1,55 +1,62 @@
 import { FooterComponent } from "../../components/FooterComponent";
 import { NavbarComponent } from "../../components/NavbarComponent";
 
-import { Container, Table } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 import "./verpartidas.css";
 
-import basketball from "../../assets/basketball.png";
 import { useEffect, useState } from "react";
 
 import api from "../../services/api";
-import { formatDateBr } from "../../utils";
-import { Link } from "react-router-dom";
-import { FiEdit2, FiTrash2 } from 'react-icons/fi';
 import { DeleteMatchModal } from "../../components/DeleteMatchModal";
 import { EditMatchModal } from "../../components/EditMatchModal";
+import { Season } from "../../components/Season";
+import { FiPlus } from "react-icons/fi";
+import { AddMatchModal } from "../../components/AddMatchModal";
+import { SeasonStatsModal } from "../../components/SeasonStatsModal";
+import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
 
 export const VerPartidas = () => {
-  const [matches, setMatches] = useState([]);
+  const history = useHistory();
+  const [seasons, setSeasons] = useState([]);
   const [token] = useState(localStorage.getItem("token"));
   const [playerId] = useState(localStorage.getItem('playerId'));
 
-  const [loadingMatches, setLoadingMatches] = useState(false);
+  const [loadingSeasons, setLoadingSeasons] = useState(false);
+  const [loadingAddSeason, setLoadingAddSeason] = useState(false);
 
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showAddMatchModal, setShowAddMatchModal] = useState(false);
+  const [showSeasonStatsModal, setShowSeasonStatsModal] = useState(false);
 
   const [currentMatch, setCurrentMatch] = useState();
+  const [currentSeason, setCurrentSeason] = useState();
 
   useEffect(() => {
     if (playerId) {
-      async function loadMatches() {
-        setLoadingMatches(true);
+      async function loadSeasons() {
+        setLoadingSeasons(true);
         await api
-          .get(`/api/players/${playerId}/matches`, {
+          .get(`/api/players/${playerId}/seasons`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           })
           .then((response) => {
             if (response.status === 200) {
-              setMatches(response.data);
+              setSeasons(response.data);
             }
-            setLoadingMatches(false);
+            setLoadingSeasons(false);
           })
           .catch((err) => {
-            setLoadingMatches(false);
+            setLoadingSeasons(false);
             console.log(err);
           });
       }
 
-      loadMatches();
+      loadSeasons();
     }
   }, [playerId, token]);
 
@@ -63,12 +70,45 @@ export const VerPartidas = () => {
     setCurrentMatch(match);
   }
 
-  if (loadingMatches) {
+  function toggleAddMatchModal(season) {
+    setShowAddMatchModal(!showAddMatchModal);
+    setCurrentSeason(season);
+  }
+
+  function toggleSeasonStatsModal(season) {
+    setShowSeasonStatsModal(!showSeasonStatsModal);
+    setCurrentSeason(season);
+  }
+
+  async function addSeason() {
+    if (playerId) {
+      setLoadingAddSeason(true);
+      await api.post(`/api/seasons`, {
+        idPlayer:playerId
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      })
+      .then(response => {
+        setLoadingAddSeason(false);
+        toast.success("Temporada registrada com sucesso! Agora você já pode cadastrar suas partidas para visualizar suas estatísticas.");
+        setTimeout(() => {
+          history.go("/ver-partidas");
+        }, 2000);
+      })
+      .catch((err) => {
+        toast.error("Ooops, ocorreu um erro inesperado ao cadastrar temporada! Por favor tente novamente mais tarde ou tente relogar antes de cadastrar uma nova temporada.")
+        console.log(err);
+      })
+    }
+  }
+
+  if (loadingSeasons) {
     return (
       <div id="ver-partidas-page">
         <NavbarComponent />
         <Container className="vp-content">
-          <img src={basketball} alt="Imagem ilustrativa de cesta de basquete" />
           <div>
             <h1>Suas partidas</h1>
             <p>Carregando partidas...</p>
@@ -83,51 +123,36 @@ export const VerPartidas = () => {
     <div id="ver-partidas-page">
       <NavbarComponent />
       <Container className="vp-content">
-        <img src={basketball} alt="Imagem ilustrativa de cesta de basquete" />
         <div>
-          <h1>Suas partidas</h1>
-          {matches.length === 0 ? (
-            <>
+          <div className="heading">
+            <h1>Suas partidas</h1>
+            <button className="new-btn" onClick={() => addSeason()}>
+              <FiPlus size={25} color="#FFF" />
+              {loadingAddSeason ? ("Cadastrando Temporada...") : ("Adicionar Temporada")}
+            </button>
+          </div>
+          {seasons.length === 0 ? (
               <p>
-                Você ainda não possui partidas cadastradas!{" "}
-                <Link to="/lancar-pontos">Cadastrar partida</Link>
+                Você ainda não possui partidas cadastradas! <br/> Que tal cadastrar uma temporada para registrar suas partidas?
               </p>
-            </>
           ) : (
-            <Table>
-              <thead>
-                <tr>
-                  <th scope="col">Data</th>
-                  <th className="points" scope="col">Pontos</th>
-                  <th scope="col">#</th>
-                </tr>
-              </thead>
-              <tbody>
-                {matches
-                  .sort((m1, m2) => {
-                      return new Date(m1.date) - new Date(m2.date)
-                  })
-                  .reverse()
-                  .map((match, index) => {
-                    return (
-                      <tr key={index}>
-                        <td data-label="Data">{formatDateBr(match.date)}</td>
-                        <td className="points" data-label="Pontos">
-                          {match.score}
-                        </td>
-                        <td data-label="#">
-                          <button className="action" style={{ backgroundColor: '#F6A935'}} onClick={ () => toggleEditModal(match) }>
-                            <FiEdit2 color="#fff" size={17} />
-                          </button>
-                          <button className="action" style={{ backgroundColor: '#B20600'}} onClick={ () => toggleDeleteModal(match) }>
-                            <FiTrash2 color="#fff" size={17} />
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                })}
-              </tbody>
-            </Table>
+                seasons.sort((s1, s2) => {
+                  return new Date(s1.createdAt) - new Date(s2.createdAt)
+                })
+                .reverse()
+                .map((season, index) => {
+                  return(
+                    <Season 
+                      key={index} 
+                      season={season} 
+                      toggleDeleteModal={toggleDeleteModal} 
+                      toggleEditModal={toggleEditModal} 
+                      toggleAddMatchModal={toggleAddMatchModal} 
+                      toggleSeasonStatsModal={toggleSeasonStatsModal}
+                    />
+                  )
+                })
+
           )}
         </div>
       </Container>
@@ -144,6 +169,20 @@ export const VerPartidas = () => {
         <DeleteMatchModal
           match={currentMatch}
           close={toggleDeleteModal}
+        />
+      )}
+
+      {showAddMatchModal && (
+        <AddMatchModal
+          season={currentSeason}
+          close={toggleAddMatchModal}
+        />
+      )}
+
+      {showSeasonStatsModal && (
+        <SeasonStatsModal
+          season={currentSeason}
+          close={toggleSeasonStatsModal}
         />
       )}
     </div>

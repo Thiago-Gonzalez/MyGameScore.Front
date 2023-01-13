@@ -16,8 +16,6 @@ const Routes = () => {
             <Route exact path="/" component={SignUpPage} />
 
 
-            <Route exact path="/lancar-pontos" component={LancarPontos} isPrivate />
-            <Route exact path="/ver-resultados" component={VerResultados} isPrivate />
             <Route exact path="/ver-partidas" component={VerPartidas} isPrivate />
             <Route exact path="/maiores-pontuacoes" component={MaioresPontuacoes} isPrivate />
 

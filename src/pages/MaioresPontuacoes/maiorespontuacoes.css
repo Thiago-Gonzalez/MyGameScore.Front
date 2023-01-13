@@ -6,8 +6,8 @@
 .mp-content {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    min-height: 71.6vh;
+    min-height: 61.6vh;
+    margin: 3rem auto;
 }
 
 .mp-content img {

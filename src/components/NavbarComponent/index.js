@@ -38,9 +38,7 @@ export const NavbarComponent = ({ notfound }) => {
                             </>
                         ) : (
                             <>
-                                <Link to="/lancar-pontos">Lançar pontos</Link>
                                 <Link to="/ver-partidas">Ver partidas</Link>
-                                <Link to="/ver-resultados">Ver resultados</Link>
                                 <Link to="maiores-pontuacoes">Quadro de pontuações</Link>
                             </>
                         )}

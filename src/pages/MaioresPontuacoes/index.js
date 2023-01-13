@@ -20,7 +20,7 @@ export const MaioresPontuacoes = () => {
     useEffect(() => {
         async function loadMatches() {
             setLoadingMatches(true);
-            await api.get("/api/matches", {
+            await api.get("/api/matches/tophighscorematches/10", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
@@ -45,7 +45,6 @@ export const MaioresPontuacoes = () => {
             <div id="maiores-pontuacoes-page">
                 <NavbarComponent />
                 <Container className="mp-content">
-                    <img src={basketball} alt="Imagem ilustrativa de cesta de basquete" />
                     <div>
                         <h1>Maiores Pontuações</h1>
                         <p>Carregando dados...</p>
@@ -60,13 +59,12 @@ export const MaioresPontuacoes = () => {
         <div id="maiores-pontuacoes-page">
             <NavbarComponent />
             <Container className="mp-content">
-                <img src={basketball} alt="Imagem ilustrativa de cesta de basquete" />
                 <div>
                     <h1>Maiores Pontuações</h1>
                     {matches.length === 0 ? (
                         <>
                             <p>
-                                Ooops, parece que nenhum jogador já cadastrou partidas! <Link to="/lancar-pontos">Seja o primeiro</Link>
+                                Ooops, parece que nenhum jogador já cadastrou partidas! <Link to="/ver-partidas">Seja o primeiro</Link>
                             </p>
                         </>
                     ) : (
@@ -80,13 +78,7 @@ export const MaioresPontuacoes = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {matches
-                                    .sort((m1, m2) => {
-                                        return m1.score - m2.score;
-                                    })
-                                    .reverse()
-                                    .slice(0, 10)
-                                    .map((match, index) => {
+                                {matches.map((match, index) => {
                                         return(
                                             <tr key={index}>
                                                 <td>{index+1}</td>

@@ -11,3 +11,7 @@
 .save-btn:hover {
     transform: scale(1.025);
 }
+
+.player-name {
+    color: #000;
+}

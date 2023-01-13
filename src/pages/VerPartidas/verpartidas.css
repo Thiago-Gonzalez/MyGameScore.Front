@@ -5,21 +5,58 @@
 
 .vp-content {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    min-height: 71.6vh;
+    flex-direction: column;
+    min-height: 61.6vh;
+    margin: 3rem auto;
 }
 
-.vp-content img {
-    margin-right: 50px;
+.vp-content h1 {
+    margin-bottom: 1.25rem;
+}
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.new-btn {
+    float: right;
+    margin-bottom: 1.5em;
+    background-color: #83bf02;
+    color: #fff;
+    border: 0;
+    padding: .5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.1em;
+    border-radius: 6px;
+    transition: ease-in 0.2s;
+}
+
+.new-btn svg {
+    margin-right: 5px;
+}
+
+
+.new-btn:hover {
+    background-color: #5fd204;
+    transform: scale(1.1);
+    text-decoration: none;
 }
 
 .vp-content table {
+    color: #000;
+}
+
+.vp-content th {
     color: #F45B24;
 }
 
 .vp-content table tbody, .vp-content table td, .vp-content table th {
-    border: none;
+    border: 1px solid grey;
 }
 
 .vp-content table td .action {
@@ -41,4 +78,63 @@
 
 .vp-content .points {
     text-align: center;
+}
+
+.action-column {
+    text-align: center;
+}
+
+.season {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.toggle-btn {
+    border: none;
+    background-color: #fff;
+}
+
+.season h4 {
+    color: #F45B24;
+}
+
+.toggle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.arrow {
+    border: solid #F45B24;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    height: 8px;
+    width: 8px;
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+  
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.season-btn {
+    border: 1px solid #F45B24;
+    border-radius: 5px;
+    background-color: #F45B24;
+    color: #fff;
+    padding: 8px 12px;
+    margin-right: 1rem;
+    transition: 0.4;
+    font-weight: 600;
+}
+
+.season-btn:hover {
+    transform: scale(1.125);
 }

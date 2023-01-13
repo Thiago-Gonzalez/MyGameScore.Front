@@ -71,3 +71,13 @@ p {
   font-weight: 400;
   font-size: 1.125em;
 }
+
+::-webkit-scrollbar {
+  background-color: #212529;
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: grey;
+  border-radius: 10px;
+}

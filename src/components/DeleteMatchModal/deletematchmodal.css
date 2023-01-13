@@ -10,7 +10,7 @@
 
 .match-modal .container {
     position: fixed;
-    max-height: 66vh;
+    max-height: 53vh;
     overflow-y: auto;
     max-width: 600px;
     top: 10%;
@@ -18,7 +18,7 @@
     left: 0;
     right: 0;
     margin: 0 auto;
-    padding: 5em 2rem;
+    padding: 5rem 2rem;
     background-color: #FFF;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
@@ -53,6 +53,10 @@
     flex-direction: column;
 }
 
+.modal-row .data {
+    color: #000;
+}
+
 .modal-row button {
     font-weight: 600;
 }
@@ -60,7 +64,6 @@
 .confirmation {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     gap: 1rem;
 }
 

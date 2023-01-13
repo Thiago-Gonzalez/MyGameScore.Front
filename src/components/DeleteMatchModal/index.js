@@ -20,7 +20,9 @@ export const DeleteMatchModal = ({match, close}) => {
         .then(() => {
             toast.success("Partida excluída com sucesso!");
             close();
-            history.go("/ver-partidas");
+            setTimeout(() => {
+                history.go("/ver-partidas");
+            }, 1000)
         })
         .catch((err) => {
             toast.error("Ooops, ocorreu um erro inesperado ao excluir esta partida! Por favor, contate o desenvolvedor.");
@@ -41,15 +43,15 @@ export const DeleteMatchModal = ({match, close}) => {
                 </div>
 
                 <div className='modal-row'>
-                    <p>Jogador: {match.playerName}</p>
+                    <p>Jogador: <span className='data'>{match.playerName}</span></p>
                 </div>
 
                 <div className='modal-row'>
-                    <p>Data: {formatDateBr(match.date)}</p>
+                    <p>Data: <span className='data'>{formatDateBr(match.date)}</span></p>
                 </div>
 
                 <div className='modal-row'>
-                    <p>Pontos: {match.score}</p>
+                    <p>Pontos: <span className='data'>{match.score}</span></p>
                 </div>
 
                 <div className='confirmation'>

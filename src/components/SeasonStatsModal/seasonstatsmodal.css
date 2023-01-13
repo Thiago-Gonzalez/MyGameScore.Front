@@ -1,0 +1,18 @@
+.stats-modal-heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stats-modal-heading span {
+    font-size: 1rem;
+}
+
+.modal-row .stats {
+    color: #F45B24;
+}
+
+.modal-row .stats td {
+    color: #000;
+}
