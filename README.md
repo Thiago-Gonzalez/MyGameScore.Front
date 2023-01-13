@@ -51,7 +51,7 @@
 <ol>
   <li>Antes de qualquer coisa, é necessário criar uma conta: realize uma requisição http post para a rota api/players e informe seu nome, email e uma senha contendo pelo menos 8 dígitos, sendo pelos menos um caractere especial, uma letra maiúscula, uma minúscula e um número</li>
   <li>Em seguida, realize o login através do método http put na rota api/players/login, informando seu email e senha, dessa forma será gerado um token, copie-o</li>
-  <li>Por fim, para finalizar a autenticação, no Swagger, clique no menu "Authorize" localizado na parte superior direita da página e em "Value" preencha com "Bearer coleAquiOToeken" (sem aspas, apenas para exemplificar => Bearer token), depois clique em Authorize</li>
+  <li>Por fim, para finalizar a autenticação, no Swagger, clique no menu "Authorize" localizado na parte superior direita da página e em "Value" preencha com "Bearer coleAquiOToken" (sem aspas, apenas para exemplificar => Bearer token), depois clique em Authorize</li>
   <li>Pronto, agora você já está autenticado e já pode realizar quaisquer requisições nas demais rotas da api</li>
 </ol>
 <h2>Nota: Rodando o back-end em ambiente Linux (necessário versão com suporte ao .NET Core 6 e SQL Server - recomendado Ubuntu 20.04):</h2>
